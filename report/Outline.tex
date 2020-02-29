@@ -1,0 +1,102 @@
+%preamble
+
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{color}
+\usepackage{listings}
+
+\title{Outline}
+\author{Alton Taing}
+\date{\today}
+
+\begin{document}
+\maketitle
+\section*{Abstract}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+\newpage
+\tableofcontents
+\listoffigures
+\newpage
+
+\section{Introduction}
+The rationale behind analyzing this dataset is to determine if there are any trends between characteristics of patients with differing levels of heart disease. Knowing these trends will perhaps enable us to better understand and treat those affected and make predictions on the direction their health may be heading. 
+*include papers about heart disease?*
+
+\section{Methods}
+
+\begin{lstlisting}[language=Python]
+
+# MAIN FUNCTION
+op = '' # defining variable op
+clmns = [] # defining list clmns
+filename='' # defining variable filename
+def shellfunction(filename, clmns, op): # defining function with 3 inputs
+    import pandas as pd # importing pandas
+    import seaborn as sns # importing seaborn for plotting 
+    import re #importing regex
+    print('Input .csv file you wish to analyze')
+    filename = str(input()) # allows user to input filename
+    assert check(filename) == True, 'This function will only work with .csv files\nPlease input a .csv file.'
+    print('\n') # the assert statement will ensure we are working with a .csv file
+    cl = [] # making an empty list
+    clmns = cl # making the empty list equal to clmns
+    print('age = 0, sex = 1\nchest pain = 2, resting blood pressure = 3\ncholesterol = 4, fasting blood sugar = 5\nresting ECG = 6, max heart rate = 7\nexercise induced angina = 8, ST depression induced by excercise = 9\nslope of the peak exercise ST segment = 10\nnumber of major vessels colored by flourosopy = 11\nthal = 12, target = 13')
+    print('\n') # providing a key
+    for i in range(0, 2): # making a for loop where the user can input what elements they want to use
+        print("Enter number corresponding to desired element to be plotted")
+        item = int(input()) 
+        cl.append(item) # appending user input to the empty list made earlier
+    x, y = cl # setting up assert statement
+    assert x != y, 'Please input different values' # using assert statement to ensure differnt values are used
+    print('\n')
+    df = pd.read_csv(filename, usecols = clmns) # importing file and designating columns to use from pandas
+    op = str(input("What operation would you like to run on this data?:\nAverage(A), Maximum(MX), Minimum(MN), Standard Deviation(STD)\nType A, MX, MN, or STD: "))
+    print('\n') # providing instructions for the user
+    if op == "A" or op == "a": # set up if, elif, else statements to take on use inputs
+        avg = df.mean(axis=0) # average function
+        v1, v2 = df
+        sns.lmplot(v1, v2, data=df,fit_reg=True) #plotting using seaborn
+        print(avg)
+    elif op == "MX" or op == "mx":
+        mx = df.max(axis=0) # max function
+        v1, v2 = df
+        sns.lmplot(v1, v2, data=df,fit_reg=True)
+        print(mx)
+    elif op == "MN" or op == "mn":
+        mn = df.min(axis=0) # min function
+        v1, v2 = df
+        sns.lmplot(v1, v2, data=df,fit_reg=True)
+        print(mn)
+    elif op == "STD" or op == "std":
+        stdev = df.std(axis=0) # standard deviation function
+        v1, v2 = df
+        sns.lmplot(v1, v2, data=df,fit_reg=True)
+        print(stdev)
+    else:
+        print("Invalid Input")
+
+
+# SUB FUNCTION
+def check(file): # defining function check
+    import re  # importing regex
+    csv = re.compile(r'.*\.csv') # will search for input ending in .csv
+    file = csv.search(file) #  returns first match
+    return bool(file) # if the input ends in .csv, this function will return True
+    
+    
+\end{lstlisting}
+\section{Results}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+\section{Discussion}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+\newpage
+
+\bibliography{References}
+\bibliographystyle{plain}
+\end{document}
